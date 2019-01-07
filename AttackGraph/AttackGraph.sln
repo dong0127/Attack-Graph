@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttackGraph", "AttackGraph\AttackGraph.csproj", "{55B190FD-6CFC-4807-A336-81F6288355CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55B190FD-6CFC-4807-A336-81F6288355CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55B190FD-6CFC-4807-A336-81F6288355CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55B190FD-6CFC-4807-A336-81F6288355CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55B190FD-6CFC-4807-A336-81F6288355CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFB1009F-46EC-49AE-ABD4-164DCCD97B84}
+	EndGlobalSection
+EndGlobal
