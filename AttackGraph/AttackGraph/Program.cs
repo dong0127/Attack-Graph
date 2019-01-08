@@ -6,7 +6,9 @@ namespace AttackGraph
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            int[,] connect = new int[3, 3] { { 0, 1, 1 }, { 1, 0, 1 }, { 1, 1, 0 } };
+            Console.WriteLine(connect[1,1]);
+            Console.ReadKey();
         }
     }
 }
