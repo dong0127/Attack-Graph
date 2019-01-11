@@ -17,7 +17,10 @@ namespace AttackGraph
             pre.Add("sshd", 1);
             pre.Add("ftp", 2);
             pre.Add("user", source);
-
+            Graph graph = new Graph();
+            graph.Source = source;
+            graph.Target = finalTarget;
+            graph.Connection = connect;
             Console.WriteLine(connect[1,1]);
             Console.ReadKey();
         }

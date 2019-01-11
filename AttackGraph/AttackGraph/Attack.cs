@@ -9,13 +9,14 @@ namespace AttackGraph
         private string attackName;
         //还要有变量前因和后果
         List<string> nodeAttack = new List<string>();
-        List<string> nodeEffect = new List<string>();
-        Stack<string> eff = new Stack<string>();
-        public string AttackName { get => attackName; set => attackName = value; }
         
-        public void IsAttack()
-        {
+        Stack<string> eff = new Stack<string>();
 
+        public string AttackName { get => attackName; set => attackName = value; }
+
+        public List<string> Node(Precondition preconditions)
+        {
+            return null;
         }
     }
 }
