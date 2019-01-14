@@ -4,13 +4,14 @@ using System.Text;
 
 namespace AttackGraph
 {
-    class Precondition: Graph
+    class Precondition: Model
     {
-       
-        private string priviledge, service;
-        
-        public string Priviledge { get => priviledge; set => priviledge = value; }
-        public string Service { get => service; set => service = value; }
-        
+         List<string> preconditions = new List<string>()
+        {
+            "user" + "," +0,
+            "ftp" + "," +1,
+            "ftp" + "," +2,
+            "sshd" + "," +1
+        };  
     }
 }

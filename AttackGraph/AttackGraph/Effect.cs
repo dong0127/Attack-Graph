@@ -4,16 +4,10 @@ using System.Text;
 
 namespace AttackGraph
 {
-    class Effect: Graph
+    class Effect: Model
     {
-        private string intruderEffect, networkEffect;
-        List<string> edgeEffect = new List<string>();
-        public string IntruderEffect { get => intruderEffect; set => intruderEffect = value; }
-        public string NetworkEffect { get => networkEffect; set => networkEffect = value; }
+        private string effects;
 
-        public List<string> Edge(Attack attack)
-        {
-            return null;
-        }
+        public string Effects { get => effects; set => effects = value; }
     }
 }

@@ -4,19 +4,15 @@ using System.Text;
 
 namespace AttackGraph
 {
-    class Attack: Graph
+    class Attack
     {
-        private string attackName;
-        //还要有变量前因和后果
-        List<string> nodeAttack = new List<string>();
-        
-        Stack<string> eff = new Stack<string>();
+        private Precondition pre;
+        private Effect eff;
 
-        public string AttackName { get => attackName; set => attackName = value; }
-
-        public List<string> Node(Precondition preconditions)
+        public Effect isAttack()
         {
-            return null;
+             
+            return eff;
         }
     }
 }

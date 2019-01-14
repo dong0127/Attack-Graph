@@ -16,25 +16,43 @@ namespace AttackGraph
             this.AttackName = attackName;
             this.Source = source;
             this.Target = target;
+            List<string> precondition = new List<string>();
+            List<string> effect = new List<string>();
             switch (attackName)
             {
                 case "sshd-bof":
-                    List<string> precondition = new List<string>();
-                    precondition.Add("user"+ source);
-                    precondition.Add("sshd");
+                    precondition.Add("user" + "," + source);
+                    precondition.Add("sshd" + "," + target);
+                    effect.Add("user" + "," + target);
+                    this.Preconditions = precondition;
+                    this.Effects = effects;
+                    break;
+                case "Ftp-rhosts":
+                    precondition.Add("user" + "," + source);
+                    precondition.Add("ftp" + "," + target);
+                    effect.Add("trust" + "," + source + "," + target);
+                    this.Preconditions = precondition;
+                    this.Effects = effects;
+                    break;
+                case "rsh":
+                    precondition.Add("user" + "," + source);
+                    precondition.Add("trust" + "," + source + ","+ target);
+                    effect.Add("user" + "," + target);
+                    this.Preconditions = precondition;
+                    this.Effects = effects;
+                    break;
+                case "local-bof":
+                    precondition.Add("user" + "," + target);
+                    effect.Add("root" + "," + target);
                     this.Preconditions = precondition;
                     this.Effects = effects;
                     break;
             }
-            
         }
-
         public string AttackName { get => attackName; set => attackName = value; }
         public int Source { get => source; set => source = value; }
         public int Target { get => target; set => target = value; }
         public List<string> Effects { get => effects; set => effects = value; }
         public List<string> Preconditions { get => preconditions; set => preconditions = value; }
-        
-        
     }
 }
