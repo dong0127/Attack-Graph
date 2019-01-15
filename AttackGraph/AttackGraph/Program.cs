@@ -5,6 +5,7 @@ namespace AttackGraph
 {
     class Program
     {
+       
         List<string> s = new List<string>() {"fasf", "fsf"};
         static void Main(string[] args)
         {

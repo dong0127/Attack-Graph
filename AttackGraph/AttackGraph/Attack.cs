@@ -9,10 +9,13 @@ namespace AttackGraph
         private Precondition pre;
         private Effect eff;
 
+        internal Precondition Pre { get => pre; set => pre = value; }
+        internal Effect Eff { get => eff; set => eff = value; }
+
         public Effect isAttack()
         {
-             
-            return eff;
+            
+            return Eff;
         }
     }
 }

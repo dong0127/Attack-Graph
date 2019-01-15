@@ -4,55 +4,54 @@ using System.Text;
 
 namespace AttackGraph
 {
+    /*
+    struct attacks
+    {
+        public string name;
+        public List<string> preconditions;
+        public List<string> effects;
+    }
+    */
     class AtomAttack
     {
-        private string attackName;
-        private int source, target;
-        private List<string> preconditions = new List<string>();
-        private List<string> effects = new List<string>();
-        
-        public AtomAttack(string attackName, int source, int target)
+        Dictionary<string, List<string>> precondition = new Dictionary<string, List<string>>()
         {
-            this.AttackName = attackName;
-            this.Source = source;
-            this.Target = target;
-            List<string> precondition = new List<string>();
-            List<string> effect = new List<string>();
-            switch (attackName)
-            {
-                case "sshd-bof":
-                    precondition.Add("user" + "," + source);
-                    precondition.Add("sshd" + "," + target);
-                    effect.Add("user" + "," + target);
-                    this.Preconditions = precondition;
-                    this.Effects = effects;
-                    break;
-                case "Ftp-rhosts":
-                    precondition.Add("user" + "," + source);
-                    precondition.Add("ftp" + "," + target);
-                    effect.Add("trust" + "," + source + "," + target);
-                    this.Preconditions = precondition;
-                    this.Effects = effects;
-                    break;
-                case "rsh":
-                    precondition.Add("user" + "," + source);
-                    precondition.Add("trust" + "," + source + ","+ target);
-                    effect.Add("user" + "," + target);
-                    this.Preconditions = precondition;
-                    this.Effects = effects;
-                    break;
-                case "local-bof":
-                    precondition.Add("user" + "," + target);
-                    effect.Add("root" + "," + target);
-                    this.Preconditions = precondition;
-                    this.Effects = effects;
-                    break;
-            }
+            {"sshd-bof", new List<string>{ "user", "sshd" } },
+            {"Ftp-rhosts", new List<string>{ "user", "ftp" } },
+            {"rsh", new List<string>{ "user", "trust" } },
+            {"local-bof", new List<string>{ "user" } }
+        };
+        
+        Dictionary<string, List<string>> effect = new Dictionary<string, List<string>>()
+        {
+            {"sshd-bof", new List<string>{ "user" } },
+            {"Ftp-rhosts", new List<string>{ "trust" } },
+            {"rsh", new List<string>{ "user"} },
+            {"local-bof", new List<string>{ "root" } }
+        };
+        /*
+        public void GetAttack()
+        {
+            attacks attack0;
+            attack0.name = "sshd-bof";
+            attack0.preconditions =new List<string>() { "user", "sshd" };
+            attack0.effects = new List<string>() { "user"};
+
+            attacks attack1;
+            attack1.name = "Ftp-rhosts";
+            attack1.preconditions = new List<string>() { "user", "ftp" };
+            attack1.effects = new List<string>() { "trust" };
+
+            attacks attack2;
+            attack2.name = "rsh";
+            attack2.preconditions = new List<string>() { "user", "trust" };
+            attack2.effects = new List<string>() { "user"};
+
+            attacks attack3;
+            attack2.name = "local-bof";
+            attack3.preconditions = new List<string>() { "user" + "." + FinalTarget };
+            attack3.effects = new List<string>() { "root" };
         }
-        public string AttackName { get => attackName; set => attackName = value; }
-        public int Source { get => source; set => source = value; }
-        public int Target { get => target; set => target = value; }
-        public List<string> Effects { get => effects; set => effects = value; }
-        public List<string> Preconditions { get => preconditions; set => preconditions = value; }
+        */
     }
 }

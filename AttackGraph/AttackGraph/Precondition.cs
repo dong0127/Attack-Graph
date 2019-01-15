@@ -8,10 +8,12 @@ namespace AttackGraph
     {
          List<string> preconditions = new List<string>()
         {
-            "user" + "," +0,
-            "ftp" + "," +1,
-            "ftp" + "," +2,
-            "sshd" + "," +1
-        };  
+            "user" + "." +0,
+            "ftp" + "." +1,
+            "ftp" + "." +2,
+            "sshd" + "." +1
+        };
+
+        public List<string> Preconditions { get => preconditions; set => preconditions = value; }
     }
 }

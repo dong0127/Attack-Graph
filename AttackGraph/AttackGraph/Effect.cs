@@ -6,8 +6,8 @@ namespace AttackGraph
 {
     class Effect: Model
     {
-        private string effects;
+        private List<string> effects;
 
-        public string Effects { get => effects; set => effects = value; }
+        public List<string> Effects { get => effects; set => effects = value; }
     }
 }
