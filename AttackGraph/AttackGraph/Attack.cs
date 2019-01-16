@@ -6,16 +6,36 @@ namespace AttackGraph
 {
     class Attack
     {
-        private Precondition pre;
+        private int target, source;
+        private Input input;
         private Effect eff;
-
-        internal Precondition Pre { get => pre; set => pre = value; }
+        private AtomAttack atomAttack;
+        
+        public int Target { get => target; set => target = value; }
+        public int Source { get => source; set => source = value; }
+        internal Input Pre { get => input; set => input = value; }
         internal Effect Eff { get => eff; set => eff = value; }
+        internal AtomAttack AtomAttack { get => atomAttack; set => atomAttack = value; }
 
-        public Effect isAttack()
+        public string IsAttack()
         {
-            
-            return Eff;
+            input = new Input();
+            string result = null;
+            foreach (string key in input.Initial)
+            {
+                if (key.Contains("input.Start"))
+                {
+                    if (key.Contains("user") || key.Contains("root"))
+                    {
+                        foreach (List<string> atom in atomAttack.Precondition)
+                        {
+                            
+                        }
+                    }
+                }
+             
+            }
+            return result;
         }
     }
 }

@@ -4,16 +4,21 @@ using System.Text;
 
 namespace AttackGraph
 {
-    class Precondition: Model
+    class Input
     {
-         List<string> preconditions = new List<string>()
+        int start = 0;
+        int end = 2;
+      
+        List<string> initial = new List<string>()
         {
-            "user" + "." +0,
-            "ftp" + "." +1,
-            "ftp" + "." +2,
-            "sshd" + "." +1
+           "user0",
+           "ftp1",
+           "ftp2",
+           "sshd1"
         };
 
-        public List<string> Preconditions { get => preconditions; set => preconditions = value; }
+        public List<string> Initial { get => initial; set => initial = value; }
+        public int Start { get => start; set => start = value; }
+        public int End { get => end; set => end = value; }
     }
 }
