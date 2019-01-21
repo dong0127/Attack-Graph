@@ -7,45 +7,21 @@ namespace AttackGraph
 
     class AtomAttackTemplate
     {
+        
         List<Element> preconditions = new List<Element>();
         List<Element> effects = new List<Element>();
-        string attackname;
-
-        public AtomAttack(List<Element> preconditions, List<Element> effects, string attackname)
-        {
-            this.preconditions = preconditions;
-            this.effects = effects;
-            this.attackname = attackname;
-        }
-
-        getFullAttack(Element ele)
-        {
-
-            return List<Element>
-        }
-
-        getResult()
-        {
-        }
-        /*
-        List<List<string>> precondition =new  List<List<string>>()
-        {
-           new List<string> {"sshd-bof", "user", "sshd" },
-           new List<string> {"Ftp-rhosts", "user", "ftp" },
-           new List<string> {"rsh","user", "trust" },
-           new List<string> {"local-bof", "user" }
-        };
-
-        List<List<string>> effect = new List<List<string>>()
-        {
-           new List<string>{"sshd-bof", "user" },
-           new List<string> {"Ftp-rhosts", "trust" },
-           new List<string> {"rsh", "user" },
-           new List<string>{"local-bof", "root" }
-        };
+        string attackName;
         
-        public List<List<string>> Precondition { get => precondition; set => precondition = value; }
-        public List<List<string>> Effect { get => effect; set => effect = value; }
-        */
+        public AtomAttackTemplate(List<Element> preconditions, List<Element> effects, string attackName)
+        {
+            this.Preconditions = preconditions;
+            this.Effects = effects;
+            this.AttackName = attackName;
+        }
+
+        public string AttackName { get => attackName; set => attackName = value; }
+        internal List<Element> Preconditions { get => preconditions; set => preconditions = value; }
+        internal List<Element> Effects { get => effects; set => effects = value; }
+
     }
 }

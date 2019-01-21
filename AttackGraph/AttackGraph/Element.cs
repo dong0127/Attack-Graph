@@ -10,22 +10,26 @@ namespace AttackGraph
         string from, to;
         string type;
 
-        public Element(string name, string from, string to, string type) : this(name, from, to)
+        public string From { get => from; set => from = value; }
+        public string To { get => to; set => to = value; }
+        public string Name { get => name; set => name = value; }
+        public string Type { get => type; set => type = value; }
+
+        public Element(string name, string from, string to, string type)
         {
-            this.type = type;
+            this.Name = name;
+            this.From = from;
+            this.To = to;
+            this.Type = type;
         }
 
-        public Element(string name, string from, string to)
+        public Element()
         {
-            this.name = name;
-            this.from = from;
-            this.to = to;
-            
         }
 
-        public string getId()
+        public override string ToString()
         {
-            return null;
+            return Name+"("+From+","+To+")";
         }
     }
 }
