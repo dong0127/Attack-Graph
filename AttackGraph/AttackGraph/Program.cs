@@ -48,7 +48,7 @@ namespace AttackGraph
                 
             };
             Attacks attacks = new Attacks(atomAttacks, "0","2");
-            attacks.MakeOneMove(new Element("user", "0", "0", "privilege"), knowledges);
+           
 
             Console.ReadKey();
         } 
