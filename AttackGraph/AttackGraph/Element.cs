@@ -8,19 +8,19 @@ namespace AttackGraph
     {
         string name;
         string from, to;
-        string type;
+        bool visited;
 
         public string From { get => from; set => from = value; }
         public string To { get => to; set => to = value; }
         public string Name { get => name; set => name = value; }
-        public string Type { get => type; set => type = value; }
+        public bool Visited { get => visited; set => visited = value; }
 
         public Element(string name, string from, string to, string type)
         {
             this.Name = name;
             this.From = from;
             this.To = to;
-            this.Type = type;
+            this.Visited = visited;
         }
 
         public Element()
