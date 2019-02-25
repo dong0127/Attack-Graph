@@ -4,26 +4,29 @@ using System.Text;
 
 namespace AttackGraph
 {
-    class Element
+    class Node
     {
-        string name;
-        string from, to;
-        bool visited;
+        string name, from, to;
 
         public string From { get => from; set => from = value; }
         public string To { get => to; set => to = value; }
         public string Name { get => name; set => name = value; }
-        public bool Visited { get => visited; set => visited = value; }
+        
 
-        public Element(string name, string from, string to, string type)
+        public Node(string name, string from, string to)
         {
             this.Name = name;
             this.From = from;
-            this.To = to;
-            this.Visited = visited;
+            this.To = to; 
+        }
+        //privilege
+        public Node(string name, string from)
+        {
+            this.Name = name;
+            this.From = from;
         }
 
-        public Element()
+        public Node()
         {
         }
 

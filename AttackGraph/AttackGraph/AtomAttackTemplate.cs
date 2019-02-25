@@ -7,21 +7,17 @@ namespace AttackGraph
 
     class AtomAttackTemplate
     {
-        
-        List<Element> preconditions = new List<Element>();
-        List<Element> effects = new List<Element>();
-        string attackName;
-        
-        public AtomAttackTemplate(List<Element> preconditions, List<Element> effects, string attackName)
+
+        List<Node> adjNodes = new List<Node>();
+        Node atom;
+
+        public AtomAttackTemplate(List<Node> adjNodes, Node atom)
         {
-            this.Preconditions = preconditions;
-            this.Effects = effects;
-            this.AttackName = attackName;
+            this.AdjNodes = adjNodes;
+            this.atom = atom;
         }
 
-        public string AttackName { get => attackName; set => attackName = value; }
-        internal List<Element> Preconditions { get => preconditions; set => preconditions = value; }
-        internal List<Element> Effects { get => effects; set => effects = value; }
-
+        internal List<Node> AdjNodes { get => adjNodes; set => adjNodes = value; }
+        internal Node Atom { get => atom; set => atom = value; }
     }
 }

@@ -16,12 +16,18 @@ namespace AttackGraph
             this.t = t;
         }
 
-        public List<AtomAttackTemplate> GetIntialStep(List<Element> initialKnowlege)
-        {
+        Stack<AtomAttackTemplate> visited = new Stack<AtomAttackTemplate>();
 
+        public List<AtomAttackTemplate> GetIntialStep(List<Node> pri, List<Node> ser)
+        {
+            foreach(Node p in pri)
+            {
+                if(p.Name!="none" && p.From==s)
+              
+            }
             return null;
         }
-     
+
         public List<AtomAttackTemplate> Attack { get => attack; set => attack = value; }
         
     }
