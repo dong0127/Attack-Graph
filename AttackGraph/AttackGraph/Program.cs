@@ -7,64 +7,81 @@ namespace AttackGraph
     {
         static void Main(string[] args)
         {
+            ////serivce of net
+            //list<string> serivce1 = new list<string>
+            //{
+            //    "ftp",
+            //    "sshd"
+            //};
+            //network host1 = new network("1", serivce1);
+            //list<string> serivce2 = new list<string>
+            //{
+            //    "ftp",
+            //};
+            //network host2 = new network("2", serivce2);
+
             // input
-            List<Node> knowledgesOfSer = new List<Node>
+            List<Element> knowledges = new List<Element>
             {         
-                new Node("ftp", "0", "2"),
-                new Node("ftp", "1", "2"),
-                new Node("sshd", "0", "1"),
-                new Node("sshd", "2", "1"),
-            };
-            List<Node> knowledgesOfPri = new List<Node>
-            {
-                new Node("user", "0", "0"),
-            };
-            //atomattack0
-            List<Node> nodes0 = new List<Node>
-            {
-                new Node("sshd", "from", "to"),
-                new Node("user", "from"),
-                new Node("user", "to")
-            };
-            AtomAttackTemplate atomAttack0 = new AtomAttackTemplate(nodes0, new Node("sshd-bof", "from", "to"));
-
-            //atomattack1
-            List<Node> nodes1 = new List<Node>
-            {
-                new Node("ftp", "from", "to"),
-                new Node("trust", "from", "to"),
-                new Node("user", "to")
-            };
-            AtomAttackTemplate atomAttack1 = new AtomAttackTemplate(nodes1, new Node("Ftp-rhosts", "from", "to"));
-
-            //atomattack2
-            List<Node> nodes2 = new List<Node>
-            {
-                new Node("trust", "from", "to"),
-                new Node("user", "from"),
-                new Node("user", "to")
+                new Element("ftp", "0", "2", "attribute"),
+                new Element("ftp", "0", "1", "attribute"),
+                new Element("ftp", "1", "2", "attribute"),
+                new Element("sshd", "0", "1", "attribute"),
+                new Element("sshd", "2", "1", "attribute"),
+                new Element("user", "0", "attribute")
             };
            
-            AtomAttackTemplate atomAttack2 = new AtomAttackTemplate(nodes2, new Node("rsh", "from", "to"));
+      
+            //atomattack0
+            List<Element> pre0 = new List<Element>
+            {
+                new Element("sshd", "from", "to", "attribute"),
+                new Element("user", "from", "attribute"),
+            };
+           
+            Element post0 = new Element("user", "to", "attribute");
+            Template atomAttack0 = new Template("sshd-bof", pre0, post0);
+
+            //atomattack1
+            List<Element> pre1 = new List<Element>
+            {
+                new Element("ftp", "from", "to"),
+                new Element("user", "to", "attribute")
+            };
+      
+            Element post1 = new Element("trust", "from", "to", "attribute");
+            Template atomAttack1 = new Template("Ftp-rhosts", pre1, post1);
+
+            //atomattack2
+            List<Element> pre2 = new List<Element>
+            {
+                new Element("trust", "from", "to", "attribute"),
+                new Element("user", "from", "attribute"),
+            };
+    
+            Element post2 = new Element("user", "to", "attribute");
+            Template atomAttack2 = new Template("rsh", pre2, post2);
 
             //atomattack3
-            List<Node> nodes3 = new List<Node>
+            List<Element> pre3 = new List<Element> 
             {
-                new Node("user", "from"),
-                new Node("root", "to")
+                new Element("user", "from", "attribute"),
             };
-            AtomAttackTemplate atomAttack3 = new AtomAttackTemplate(nodes2, new Node("local-bof", "from", "to"));
+            Element post3 =   new Element("root", "to", "attribute");
+          
+            Template atomAttack3 = new Template("local-bof", pre3, post3);
             //put attacks in a list 
-            List<AtomAttackTemplate> atomAttacks = new List<AtomAttackTemplate>
+            List<Template> atomAttacks = new List<Template>
             {
                 atomAttack0,
                 atomAttack1,
                 atomAttack2,
                 atomAttack3,
             };
-            Attacks attacks = new Attacks(atomAttacks, "0","2");
-           
-
+            Attack attacks = new Attack(atomAttacks, "0","2");
+            //attacks.GetInitialVertex(knowledges);
+            
+            attacks.DFS(new Element("Ftp-rhosts", "0", "1", "attribute"), knowledges);
             Console.ReadKey();
         } 
     }
