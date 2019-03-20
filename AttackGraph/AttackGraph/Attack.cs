@@ -49,51 +49,82 @@ namespace AttackGraph
             }
             return initialVertex;
         }
-        //搜索
-        public void DFS(Element vertex, List<Element> input)
+
+        //判断是否可以攻击
+        public bool Feasible(List<Element> input)
         {
-            Element v = null;
+            foreach (Element start in input)
+            {
+                if (start.Name == "user" || start.Name == "root")
+                {
+                    Console.WriteLine("扫描初始知识库，可以攻击");
+                    return true;
+                }
+            }
+            Console.WriteLine("扫描初始知识库，无法攻击");
+            return false;
+        }
+
+        //搜索
+        public void DFS(List<Element> input)
+        {
             Stack<Element> stack = new Stack<Element>();
             HashSet<string> visited = new HashSet<string>();
-            List<string> path = new List<string>();
-            stack.Push(vertex);
-            visited.Add(vertex.ToString());
-            path.Add(vertex.ToString());
-            while (stack.Count != 0)
+            //List<Element> knowledges = new List<Element>(input);
+            Element oneStep ,temp = null;
+            //一开始是否满足权限
+            if (Feasible(input) == true)
             {
-                foreach (Template parent in attacks)
+                //把初始知识库全部压栈
+                foreach (Element knowledge in input)
                 {
-                    //找到父节点对应的攻击模板
-                    if (stack.Peek().Name == parent.Name)
+                    stack.Push(knowledge);
+                }
+                //visited.Add("开始攻击");
+                //开始搜索
+                while (stack.Count != 0)
+                {
+                    oneStep = stack.Pop();
+                    //不同类型的点采用不同的策略——————————————————————————————————
+                    if (oneStep.Type == "attribute")
                     {
-                        foreach (Template child in attacks)
+                        foreach (Template tp in attacks)
                         {
-                            //根据父节点的后果在模板库中找到对应的子节点
-                            foreach (Element pre in child.Preconditions)
+                            foreach (Element pre1 in tp.Preconditions)
                             {
-                                if (parent.Postcondition.Name == pre.Name)
+                                if (oneStep.Name == pre1.Name)
                                 {
-                                    //判断输入知识库是否有满足一步攻击的条件
-                                    foreach (Element k in input)
+                                    if (tp.Name == "local-bof" && oneStep.From == t)
                                     {
-                                        foreach (Element pre2 in child.Preconditions)
+                                        temp = new Element(tp.Name, oneStep.From, "action");
+                                        //没有被访问过的话，就压栈
+                                        if (!visited.Contains(temp.ToString()))
                                         {
-                                            //判断有没有子节点
-                                            if (k.Name == pre2.Name && k.Name != pre.Name)
+                                            stack.Push(temp);
+                                            visited.Add(temp.ToString());
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (Element i in input)
+                                        {
+                                            foreach (Element pre2 in tp.Preconditions)
                                             {
-                                                v = new Element(child.Name, pre2.From, pre.To, "action");
-                                                //判断子节点是否被访问过
-                                                foreach (string vis in visited)
+                                                if (pre2.Name == i.Name && pre2.Name != pre1.Name)
                                                 {
-                                                    if (vis != v.ToString())
+                                                    if (oneStep.Name == "user")
                                                     {
-                                                        stack.Push(v);
-                                                        visited.Add(v.ToString());
-                                                        path.Add(v.ToString());
+                                                        temp = new Element(tp.Name, oneStep.From, i.To, "action");
                                                     }
                                                     else
                                                     {
-                                                        stack.Pop();
+                                                        temp = new Element(tp.Name, oneStep.From, oneStep.To, "action");
+                                                    }
+                                                    //没有被访问过的话，就压栈
+                                                    if (!visited.Contains(temp.ToString()))
+                                                    {
+                                                        stack.Push(temp);
+                                                        visited.Add(temp.ToString());
                                                     }
                                                 }
                                             }
@@ -103,16 +134,42 @@ namespace AttackGraph
                             }
                         }
                     }
+                    else if (oneStep.Type == "action")
+                    {
+                        foreach (Template tt in attacks)
+                        {
+                            if (tt.Name == oneStep.Name)
+                            {
+                                foreach (Element one in tt.Postconditions)
+                                {
+                                    if (one.Name == "user" || one.Name == "root")
+                                    {
+                                        temp = new Element(one.Name, oneStep.To, "attribute");
+                                    }
+                                    else
+                                    {
+                                        temp = new Element(one.Name, oneStep.From, oneStep.To, "attribute");
+                                    }
+                                    //没有被访问过的话，就压栈
+                                    if (!visited.Contains(temp.ToString()))
+                                    {
+                                        stack.Push(temp);
+                                        visited.Add(temp.ToString());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //—————————————————————————————————————————————
                 }
+                Console.WriteLine(visited.Count);
+                foreach (string s in visited) { Console.WriteLine(s); }
+                
             }
-        
-            Console.WriteLine(visited.Count);
-            Console.WriteLine(path);
-            foreach (string s in path)
+            else
             {
-                Console.WriteLine(s);
+                Console.WriteLine("不满足攻击条件");
             }
-
         }
     }
 }

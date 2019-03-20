@@ -9,17 +9,17 @@ namespace AttackGraph
     {
         string name;
         List<Element> preconditions = new List<Element>();
-        Element postcondition = new Element();
+        List<Element> postconditions = new List<Element>();
 
-        public Template(string name, List<Element> preconditions, Element postcondition)
+        public Template(string name, List<Element> preconditions, List<Element> postconditions)
         {
             this.name = name;
             this.preconditions = preconditions;
-            this.postcondition = postcondition;
+            this.postconditions = postconditions;
         }
 
         internal string Name { get => name; set => name = value; }
         internal List<Element> Preconditions { get => preconditions; set => preconditions= value; }
-        internal Element Postcondition { get => postcondition; set => postcondition = value; }
+        internal List<Element> Postconditions { get => postconditions; set => postconditions = value; }
     }
 }
