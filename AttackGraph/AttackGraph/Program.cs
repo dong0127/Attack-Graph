@@ -30,13 +30,6 @@ namespace AttackGraph
                 new Element("sshd", "2", "1", "attribute"),
                 new Element("user", "0", "attribute")
             };
-            void gg()
-            {
-                Element a = new Element("ftp", "0", "2", "attribute");
-                Element b = new Element("ftp", "0", "2", "attribute");
-                Console.WriteLine(a.GetHashCode());
-                Console.WriteLine(b.GetHashCode());
-            }
 
             //atomattack0
             List<Element> pre0 = new List<Element>
@@ -87,7 +80,6 @@ namespace AttackGraph
             Attack attacks = new Attack(atomAttacks, "0","2");
             //attacks.GetInitialVertex(knowledges);
             //attacks.DFS(knowledges);
-            gg();
             Console.ReadKey();
         } 
     }
