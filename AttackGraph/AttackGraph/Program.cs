@@ -23,50 +23,36 @@ namespace AttackGraph
             // input
             List<Element> knowledges = new List<Element>
             {
+                new Element("user", "0", "0", "attribute"),
                 new Element("ftp", "0", "2", "attribute"),
                 new Element("ftp", "0", "1", "attribute"),
                 new Element("ftp", "1", "2", "attribute"),
                 new Element("sshd", "0", "1", "attribute"),
-                new Element("sshd", "2", "1", "attribute"),
-                new Element("user", "0", "attribute")
+                new Element("sshd", "2", "1", "attribute")
+               
             };
 
             //atomattack0
-            List<Element> pre0 = new List<Element>
-            {
-                new Element("sshd", "from", "to", "attribute"),
-                new Element("user", "from", "attribute"),
-            };
-            List<Element> post0 = new List<Element> { new Element("user", "to", "attribute") };
+            HashSet<string> pre0 = new HashSet<string>{ "sshd","user" };
+            HashSet<string> post0 = new HashSet<string> { "user"};
             
             Template atomAttack0 = new Template("sshd-bof", pre0, post0);
 
             //atomattack1
-            List<Element> pre1 = new List<Element>
-            {
-                new Element("ftp", "from", "to","attribute"),
-                new Element("user", "to", "attribute")
-            };
-            List<Element> post1 = new List<Element> { new Element("trust", "from", "to", "attribute") };
+            HashSet<string> pre1 = new HashSet<string>{"ftp","user"};
+            HashSet<string> post1 = new HashSet<string> { "trust"};
             
             Template atomAttack1 = new Template("Ftp-rhosts", pre1, post1);
 
             //atomattack2
-            List<Element> pre2 = new List<Element>
-            {
-                new Element("trust", "from", "to", "attribute"),
-                new Element("user", "to","attribute"),
-            };
-            List<Element> post2 = new List<Element> { new Element("user", "to", "attribute") };
+            HashSet<string> pre2 = new HashSet<string>{"trust", "user" };
+            HashSet<string> post2 = new HashSet<string> {"user" };
             
             Template atomAttack2 = new Template("rsh", pre2, post2);
 
             //atomattack3
-            List<Element> pre3 = new List<Element>
-            {
-                new Element("user", "from", "attribute")
-            };
-            List<Element> post3 = new List<Element> { new Element("root", "to", "attribute") };
+            HashSet<string> pre3 = new HashSet<string>{"user"};
+            HashSet<string> post3 = new HashSet<string> { "root"};
           
             Template atomAttack3 = new Template("local-bof", pre3, post3);
             //put attacks in a list 
@@ -79,7 +65,7 @@ namespace AttackGraph
             };
             Attack attacks = new Attack(atomAttacks, "0","2");
             //attacks.GetInitialVertex(knowledges);
-            //attacks.DFS(knowledges);
+            attacks.DFS(knowledges);
             Console.ReadKey();
         } 
     }

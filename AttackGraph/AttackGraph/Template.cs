@@ -8,10 +8,10 @@ namespace AttackGraph
     class Template
     {
         string name;
-        List<Element> preconditions = new List<Element>();
-        List<Element> postconditions = new List<Element>();
+        HashSet<string> preconditions = new HashSet<string>();
+        HashSet<string> postconditions = new HashSet<string>();
 
-        public Template(string name, List<Element> preconditions, List<Element> postconditions)
+        public Template(string name, HashSet<string> preconditions, HashSet<string> postconditions)
         {
             this.name = name;
             this.preconditions = preconditions;
@@ -19,7 +19,7 @@ namespace AttackGraph
         }
 
         internal string Name { get => name; set => name = value; }
-        internal List<Element> Preconditions { get => preconditions; set => preconditions= value; }
-        internal List<Element> Postconditions { get => postconditions; set => postconditions = value; }
+        internal HashSet<string> Preconditions { get => preconditions; set => preconditions= value; }
+        internal HashSet<string> Postconditions { get => postconditions; set => postconditions = value; }
     }
 }

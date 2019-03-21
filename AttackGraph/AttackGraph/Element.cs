@@ -20,21 +20,11 @@ namespace AttackGraph
             this.To = to;
             this.Type = type;
         }
-        //privilege
-        public Element(string name, string from, string type)
-        {
-            this.Name = name;
-            this.From = from;
-            this.Type = type;
-        }
-
-        public Element()
-        {
-        }
-
+        
+        
         public override string ToString()
         {
-            if (Name == "user" || Name == "root")
+            if (Name == "user"||Name=="root")
             {
                 return Name + "(" + From + ")";
             }
