@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AttackGraphDemo
+namespace AttackGraph
 {
     class AdjacencyList<T>
     {

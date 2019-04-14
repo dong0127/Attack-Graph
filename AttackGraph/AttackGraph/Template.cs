@@ -1,25 +1,32 @@
-﻿using System;
+﻿
+using System;
+
 using System.Collections.Generic;
+
 using System.Text;
 
+
+
 namespace AttackGraph
+
 {
 
     class Template
-    {
-        string name;
-        HashSet<string> preconditions = new HashSet<string>();
-        HashSet<string> postconditions = new HashSet<string>();
 
-        public Template(string name, HashSet<string> preconditions, HashSet<string> postconditions)
+    {
+
+        Element atom;
+        List<Element> preconditions, postconditions;
+
+        public Template(Element atom, List<Element> preconditions, List<Element> postconditions)
         {
-            this.name = name;
-            this.preconditions = preconditions;
-            this.postconditions = postconditions;
+            this.Atom = atom;
+            this.Preconditions = preconditions;
+            this.Postconditions = postconditions;
         }
 
-        internal string Name { get => name; set => name = value; }
-        internal HashSet<string> Preconditions { get => preconditions; set => preconditions= value; }
-        internal HashSet<string> Postconditions { get => postconditions; set => postconditions = value; }
+        internal Element Atom { get => atom; set => atom = value; }
+        internal List<Element> Preconditions { get => preconditions; set => preconditions = value; }
+        internal List<Element> Postconditions { get => postconditions; set => postconditions = value; }
     }
 }
