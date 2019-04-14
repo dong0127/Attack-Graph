@@ -31,7 +31,7 @@ namespace AttackGraph
 
         }
 
-        //判断是否可以攻击
+        //判断是否可以攻击//
 
         public bool Feasible(List<Element> knowledges)
 
