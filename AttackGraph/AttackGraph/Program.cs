@@ -25,13 +25,13 @@ namespace AttackGraph
 
                 new Element("ftp", "0", "2", "attribute"),
 
-                new Element("ftp", "0", "1", "attribute"),
+                //new Element("ftp", "0", "1", "attribute"),
 
-                new Element("ftp", "1", "2", "attribute"),
+                //new Element("ftp", "1", "2", "attribute"),
 
-                new Element("sshd", "0", "1", "attribute"),
+                //new Element("sshd", "0", "1", "attribute"),
 
-                new Element("sshd", "2", "1", "attribute")
+                ///new Element("sshd", "2", "1", "attribute")
             };
 
 

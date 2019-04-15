@@ -31,7 +31,7 @@ namespace AttackGraph
 
         }
 
-        //判断是否可以攻击//
+        //判断是否可以攻击
 
         public bool Feasible(List<Element> knowledges)
 
@@ -252,9 +252,9 @@ namespace AttackGraph
 
         public void DFS(List<Element> knowledges, Element destination)
         {
-            //List<Element> trace = new List<Element>();//存放经过的点
-            //Stack<int> depthStack = new Stack<int>();//当前搜索深度
-            //List<int> depthList = new List<int>();//经过的深度
+            List<Element> trace = new List<Element>();//存放经过的点
+            Stack<int> depthStack = new Stack<int>();//当前搜索深度
+            List<int> depthList = new List<int>();//经过的深度
             Stack<Element> working = new Stack<Element>();
 
             HashSet<string> visited = new HashSet<string>();
@@ -262,12 +262,13 @@ namespace AttackGraph
             List<Element> results = new List<Element>();
 
             Element current = null;
-            //int depth =0;
+            
             //一开始是否满足权限
-            //depthStack.Push(0);
-            if (Feasible(knowledges) == true)
+            
+           if (Feasible(knowledges) == true)
             {
                 //把初始知识库全部压栈
+                depthStack.Push(0);
 
                 foreach (Element knowledge in knowledges)
                 {
@@ -281,16 +282,46 @@ namespace AttackGraph
                 while (working.Count != 0)
                 {
                     current = working.Pop();
+                    trace.Add(current);
+                    int depth = depthStack.Peek();
+
+                    if (depth > 0)
+                    {
+                        while (depthList[depthList.Count - 1] >= depth)
+                        {
+                            int lastIndex = depthList.Count - 1;
+                            depthList.RemoveAt(lastIndex);
+                            trace.RemoveAt(lastIndex);
+                        }
+                    }
+
+                    
                     results = MakeOneMove(current, knowledges);
+
+                    if (current.ToString() == destination.ToString())
+                    {
+                        foreach (Element step in trace)
+                        {
+                            Console.WriteLine(step.ToString());
+                        }
+                        return;
+                    }
+
+                    depthList.Add(depth);
+
                     foreach (Element result in results)
                     {
+                        
                         if (!visited.Contains(result.ToString()))
                         {
                             visited.Add(result.ToString());
                             working.Push(result);
+                            depthStack.Push(depth + 1);
                         }
                     }
+                    
                 }
+
                 foreach (string vertex in visited)
                 {
                     Console.WriteLine(vertex);
