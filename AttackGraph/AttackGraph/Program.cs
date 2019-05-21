@@ -24,7 +24,7 @@ namespace AttackGraph
 
                 //new Element("ftp", "0", "2", "attribute"),
 
-                //new Element("ftp", "0", "1", "attribute"),
+                ///new Element("ftp", "0", "1", "attribute"),
 
                 //new Element("ftp", "1", "2", "attribute"),
 
@@ -32,9 +32,6 @@ namespace AttackGraph
 
                 //new Element("sshd", "2", "1", "attribute"),
 
-                //new Element("H", "0", "1", "attribute"),
-                //new Element("G", "0", "1", "attribute"),
-                //new Element("F", "0", "1", "attribute"),
                 new Element("FATHER", "0", "1", "attribute")
             };
 
@@ -201,11 +198,11 @@ namespace AttackGraph
 
             };
 
-            Attack attacks = new Attack(atomAttacks, "0", "2");
+            Attack attacks = new Attack(atomAttacks,"0", "2");
 
             attacks.DFS(knowledges, new Element("8", "0", "1", "action"));
             //attacks.MakeOneMove(new Element("2", "0", "1", "action"), knowledges);
-            //attacks.MakeOneBack(new Element("C", "0", "1", "attribute"), knowledges);
+            //attacks.MakeOneBack(new Element("trust", "1", "0", "attribute"), knowledges);
             Console.ReadKey();
 
         }
