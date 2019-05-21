@@ -981,7 +981,7 @@ namespace AttackGraph
 
                         }
 
-                        //List<Element> actions = new List<Element>();
+                      
 
                         foreach (Element tr in trace)
                         {

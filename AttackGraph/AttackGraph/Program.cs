@@ -204,7 +204,7 @@ namespace AttackGraph
             //attacks.MakeOneMove(new Element("2", "0", "1", "action"), knowledges);
             //attacks.MakeOneBack(new Element("trust", "1", "0", "attribute"), knowledges);
             Console.ReadKey();
-
+            ///
         }
 
     }
