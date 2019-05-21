@@ -198,9 +198,9 @@ namespace AttackGraph
 
             };
 
-            Attack attacks = new Attack(atomAttacks,"0", "2");
+            Attack attacks = new Attack(atomAttacks, knowledges,"0", "2");
 
-            attacks.DFS(knowledges, new Element("8", "0", "1", "action"));
+            attacks.DFS(new Element("8", "0", "1", "action"));
             //attacks.MakeOneMove(new Element("2", "0", "1", "action"), knowledges);
             //attacks.MakeOneBack(new Element("trust", "1", "0", "attribute"), knowledges);
             Console.ReadKey();

@@ -1,146 +1,61 @@
 ﻿using System;
-
-
-
 using System.Collections.Generic;
-
-
-
 using System.Text;
-
-
-
-
-
 //knowledges只存放属性节点
 
 namespace AttackGraph
-
 {
-
     class Attack
-
     {
-
-
-
         List<Template> attacks;
-
-
-
+        List<Element> knowledges;
         string s, t;      //source host and target host
 
-
-
-        public Attack(List<Template> attacks, string s, string t)
-
-
-
+        public Attack(List<Template> attacks, List<Element> knowledges, string s, string t)
         {
 
-
-
             this.attacks = attacks;
-
-
-
+            this.knowledges = knowledges;
             this.s = s;
-
-
 
             this.t = t;
 
-
-
         }
 
-
-
         //判断是否可以攻击
-
-
-
-        public bool Feasible(List<Element> knowledges)
-
-
-
+        public bool Feasible()
         {
 
-
-
             foreach (Element start in knowledges)
-
-
-
             {
-
-
-
                 if (start.Name == "user" || start.Name == "root")
-
-
-
                 {
-
-
-
                     Console.WriteLine("扫描初始知识库，可以攻击");
 
-
-
                     return true;
-
-
-
                 }
 
-
-
                 else if (start.Name == "root" && start.To == t)
-
-
-
                 {
-
-
 
                     Console.WriteLine("已经达到目的了");
 
-
-
                     return false;
-
-
 
                 }
 
-
-
-
-
-
-
             }
-
-
 
             Console.WriteLine("扫描初始知识库，无法攻击");
 
-
-
             return false;
-
-
 
         }
 
 
 
-        public List<Element> MakeOneMove(Element current, List<Element> knowledges)
-
+        public List<Element> MakeOneMove(Element current)
         {
-
-
 
             List<Element> results = new List<Element>();
 
@@ -203,28 +118,17 @@ namespace AttackGraph
                             {
 
                                 if (post.To == "from")
-
                                 {
-
                                     temp = new Element(post.Name, from, from, "attribute");
-
-                               
-
                                 }
 
                                 else if (post.To == "to")
-
                                 {
-
                                     temp = new Element(post.Name, from, to, "attribute");
-
-                                   
 
                                 }
 
                             }
-
-                                
 
                             else if (post.From == "to")
 
@@ -260,8 +164,6 @@ namespace AttackGraph
 
                                 knowledges.Add(temp);
 
-
-
                         }
 
                     }
@@ -271,7 +173,6 @@ namespace AttackGraph
             }
 
             else if (current.Type == "attribute")
-
             {
 
                 foreach (Template tp in attacks)
@@ -348,8 +249,6 @@ namespace AttackGraph
 
                                 }
 
-
-
                                 else if (tp.Atom.From == "to")
 
                                 {
@@ -379,8 +278,6 @@ namespace AttackGraph
                                 else
 
                                     results.Add(temp);
-
-
 
                             }
 
@@ -492,8 +389,7 @@ namespace AttackGraph
 
 
 
-        public List<Element> MakeOneBack(Element current, List<Element> knowledges)
-
+        public List<Element> MakeOneBack(Element current)
         {
 
             List<Element> re_results = new List<Element>();
@@ -561,19 +457,12 @@ namespace AttackGraph
                                 {
 
                                     temp = new Element(pre.Name, from, from, "attribute");
-
-
-
                                 }
 
                                 else if (pre.To == "to")
-
                                 {
 
                                     temp = new Element(pre.Name, from, to, "attribute");
-
-
-
                                 }
 
                             }
@@ -595,7 +484,6 @@ namespace AttackGraph
                                 else if (pre.To == "to")
 
                                 {
-
                                     temp = new Element(pre.Name, to, to, "attribute");
 
                                 }
@@ -844,7 +732,7 @@ namespace AttackGraph
 
         }
 
-        public void DFS(List<Element> knowledges, Element destination)
+        public void DFS(Element destination)
 
         {
             List<Element> trace = new List<Element>();//存放经过的点
@@ -857,36 +745,29 @@ namespace AttackGraph
 
             HashSet<string> visited = new HashSet<string>();
 
-            List<Element> all = new List<Element>();
-
             List<Element> results = new List<Element>();
 
             Element current = null;
 
             //一开始是否满足权限
 
-           if (Feasible(knowledges) == true)
-
+           if (Feasible() == true)
             {
 
                 //把初始知识库全部压栈
 
                 foreach (Element knowledge in knowledges)
-
                 {
 
                     working.Push(knowledge);
 
                     visited.Add(knowledge.ToString());
 
-                    all.Add(knowledge);
-
                     depthStack.Push(0);
 
                 }
 
                 while (working.Count != 0)
-
                 {
 
                     current = working.Pop();
@@ -896,11 +777,9 @@ namespace AttackGraph
                     //回溯的过程
 
                     if (depth>0)
-
                     {
 
                         while (depthList[depthList.Count - 1] >= depth)
-
                         {
 
                             int lastIndex = depthList.Count - 1;
@@ -918,30 +797,23 @@ namespace AttackGraph
 
                     depthList.Add(depth);
 
-
-
-                    results = MakeOneMove(current, knowledges);
+                    results = MakeOneMove(current);
 
                     if (current.ToString() == destination.ToString())
-
                     {
 
                         Console.WriteLine("路径");
 
                         foreach (Element step in trace)
-
                         {
 
                             Console.WriteLine(step.ToString());
-
-                            
 
                         }
 
                         Console.WriteLine("深度");
 
                         foreach (int no in depthList)
-
                         {
 
                             Console.WriteLine(no);
@@ -951,7 +823,6 @@ namespace AttackGraph
                         Console.WriteLine("访问过的点");
 
                         foreach (string vertex in visited)
-
                         {
 
                             Console.WriteLine(vertex);
@@ -996,7 +867,7 @@ namespace AttackGraph
 
                                     current = re_working.Pop();
 
-                                    re_results = MakeOneBack(current, all);
+                                    re_results = MakeOneBack(current);
 
                                     foreach (Element re in re_results)
                                     {
@@ -1057,7 +928,7 @@ namespace AttackGraph
                         if (!visited.Contains(result.ToString()))
                         {
 
-                            all.Add(result);
+                            knowledges.Add(result);
 
                             visited.Add(result.ToString());
 
