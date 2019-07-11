@@ -1,13 +1,4 @@
-﻿
-using System;
-
-using System.Collections.Generic;
-
-using System.Text;
-
-
-
-namespace AttackGraph
+﻿namespace AttackGraph
 
 {
 
@@ -54,7 +45,7 @@ namespace AttackGraph
             {
                 return Name + "(" + From + ")";
             }
-            
+
 
             return Name + "(" + From + "," + To + ")";
 

@@ -1,45 +1,66 @@
 ﻿using System;
 
 using System.Collections.Generic;
-
-
+using System.Data;
 
 namespace AttackGraph
-
 {
-
     class Program
     {
-
         static void Main(string[] args)
-
         {
             // input
+            Dictionary<string, string> privilege = new Dictionary<string, string>
+            {
+                { "0", "user" }                
+            };
 
-            List<Element> knowledges = new List<Element>
+            Dictionary<string, HashSet<string>> term = new Dictionary<string, HashSet<string>>
+            {
+                { "1", new HashSet<string>{ "ftp", "sshd" } },
+                { "2", new HashSet<string>{ "ftp" } },
+                { "3", new HashSet<string>{ "ftp", "sshd", "a3","a8","a6","a7","a5" } },
+                { "4", new HashSet<string>{ "ftp", "x","y","z"} },
+                { "5", new HashSet<string>{ "ftp", "sshd" } },
+                { "6", new HashSet<string>{ "ftp" } },
+                { "7", new HashSet<string>{ "ftp" } }
+            };
 
+            Dictionary<string, HashSet<string>> network = new Dictionary<string, HashSet<string>>
+            {
+                { "0", new HashSet<string>{ "1", "2" } },
+                { "1", new HashSet<string>{ "0", "2","4" } },
+                { "2", new HashSet<string>{ "0","1","3" } },
+                { "3", new HashSet<string>{  "2","4", "6"} },
+                { "4", new HashSet<string>{ "1", "3","5" } },
+                { "5", new HashSet<string>{ "4", "6" } },
+                { "6", new HashSet<string>{ "3", "5","7" } },
+                { "7", new HashSet<string>{ "6" } }
+            };
+            List<Element> knowledges = new List<Element>           
             {
 
                 new Element("user", "0", "0", "attribute"),
 
-                //new Element("ftp", "0", "2", "attribute"),
+                new Element("ftp", "0", "2", "attribute"),
 
-                ///new Element("ftp", "0", "1", "attribute"),
+                new Element("ftp", "0", "1", "attribute"),
 
-                //new Element("ftp", "1", "2", "attribute"),
+                new Element("ftp", "1", "2", "attribute"),
 
-                //new Element("sshd", "0", "1", "attribute"),
+                new Element("sshd", "0", "1", "attribute"),
 
-                //new Element("sshd", "2", "1", "attribute"),
+                new Element("sshd", "2", "1", "attribute"),
 
-                new Element("FATHER", "0", "1", "attribute")
+                //new Element("FATHER", "0", "1", "attribute")
             };
 
             //atomattack0
             List<Element> pre0 = new List<Element>
             {
                 new Element("sshd", "from", "to", "attribute"),
-                new Element("user", "from", "from", "attribute")
+                new Element("user", "from", "from", "attribute"),
+                //new Element("network", "from", "to", "attribute")
             };
             List<Element> post0 = new List<Element>
             {
@@ -80,113 +101,115 @@ namespace AttackGraph
                 new Element("user", "to", "to", "attribute")
             };
 
-            Template atomAttack2 = new Template(new Element("rsh", "from", "to", "action"), pre2, post2); 
+            Template atomAttack2 = new Template(new Element("rsh", "from", "to", "action"), pre2, post2);
 
             //atomattack3
 
+
             List<Element> pre3 = new List<Element>
             {
+                new Element("x", "to", "from", "attribute"),
+                new Element("y", "to", "from", "attribute"),
+                new Element("z", "to", "from", "attribute"),
                 new Element("user", "from", "from", "attribute")
             };
             List<Element> post3 = new List<Element>
             {
-                new Element("root", "from", "from", "attribute")
+
+                new Element("user", "to", "to", "attribute")
             };
 
-            Template atomAttack3 = new Template(new Element("local-bof", "from", "from", "action"), pre3, post3);
+            Template atomAttack3 = new Template(new Element("rsh", "from", "to", "action"), pre3, post3);
+            //atomattack3
+
+            //List<Element> pre3 = new List<Element>
+            //{
+            //    new Element("user", "from", "from", "attribute")
+            //};
+            //List<Element> post3 = new List<Element>
+            //{
+            //    new Element("root", "from", "from", "attribute")
+            //};
+
+            //Template atomAttack3 = new Template(new Element("local-bof", "from", "from", "action"), pre3, post3);
 
             //-----------------------
             List<Element> pre4 = new List<Element>
             {
-                new Element("F", "from", "to", "attribute")
+                new Element("a1", "from", "to", "attribute"),
+                new Element("a2", "from", "to", "attribute")
             };
             List<Element> post4 = new List<Element>
             {
-                new Element("C", "from", "to", "attribute")
+                new Element("a0", "from", "to", "attribute")
             };
 
-            Template atomAttack4 = new Template(new Element("3", "from", "to", "action"), pre4, post4);
+            Template atomAttack4 = new Template(new Element("A", "from", "to", "action"), pre4, post4);
+
             List<Element> pre5 = new List<Element>
             {
-                new Element("C", "from", "to", "attribute"),
-                new Element("D", "from", "to", "attribute")
+                new Element("a8", "from", "to", "attribute")
             };
             List<Element> post5 = new List<Element>
             {
-                new Element("A", "from", "to", "attribute")
+                new Element("a3", "from", "to", "attribute"),
+                new Element("a1", "from", "to", "attribute")
             };
 
-            Template atomAttack5 = new Template(new Element("2", "from", "to", "action"), pre5, post5);
+            Template atomAttack5 = new Template(new Element("B", "from", "to", "action"), pre5, post5);
+
             List<Element> pre6 = new List<Element>
             {
-                new Element("A", "from", "to", "attribute"),
-                new Element("B", "from", "to", "attribute")
+
+                new Element("a6", "from", "to", "attribute")
             };
             List<Element> post6 = new List<Element>
             {
-                new Element("sshd", "from", "to", "attribute")
+                new Element("a2", "from", "to", "attribute")
             };
 
-            Template atomAttack6 = new Template(new Element("8", "from", "to", "action"), pre6, post6);
+            Template atomAttack6 = new Template(new Element("E", "from", "to", "action"), pre6, post6);
             List<Element> pre7 = new List<Element>
             {
-                new Element("G", "from", "to", "attribute"),
-                new Element("E", "from", "to", "attribute")
+                new Element("a3", "from", "to", "attribute"),
+                new Element("a4", "from", "to", "attribute")
             };
             List<Element> post7 = new List<Element>
             {
-                new Element("D", "from", "to", "attribute")
+                new Element("a2", "from", "to", "attribute")
             };
 
-            Template atomAttack7 = new Template(new Element("4", "from", "to", "action"), pre7, post7);
+            Template atomAttack7 = new Template(new Element("C", "from", "to", "action"), pre7, post7);
             List<Element> pre8 = new List<Element>
             {
-                
-                new Element("H", "from", "to", "attribute")
+
+                new Element("a5", "from", "to", "attribute")
             };
             List<Element> post8 = new List<Element>
             {
-                new Element("E", "from", "to", "attribute")
+                new Element("a2", "from", "to", "attribute")
             };
 
-            Template atomAttack8 = new Template(new Element("5", "from", "to", "action"), pre8, post8);
+            Template atomAttack8 = new Template(new Element("D", "from", "to", "action"), pre8, post8);
             List<Element> pre9 = new List<Element>
             {
-                new Element("A", "from", "to", "attribute"),
-                new Element("E", "from", "to", "attribute")
+
+                new Element("a7", "from", "to", "attribute")
             };
             List<Element> post9 = new List<Element>
             {
-                new Element("B", "from", "to", "attribute")
+                new Element("a4", "from", "to", "attribute")
             };
 
-            Template atomAttack9 = new Template(new Element("1", "from", "to", "action"), pre9, post9);
-            //给初始条件加一个父节点
-            List<Element> pre10 = new List<Element>
-            {
-                
-                new Element("FATHER", "from", "to", "attribute")
-            };
-            List<Element> post10 = new List<Element>
-            {
-                new Element("H", "from", "to", "attribute"),
-                new Element("F", "from", "to", "attribute"),
-                new Element("G", "from", "to", "attribute")
-                
-            };
+            Template atomAttack9 = new Template(new Element("F", "from", "to", "action"), pre9, post9);
 
-            Template atomAttack10 = new Template(new Element("0", "from", "to", "action"), pre10, post10);
             //put attacks in a list 
 
             List<Template> atomAttacks = new List<Template>
             {
                 atomAttack0,
-
                 atomAttack1,
-
                 atomAttack2,
-
-                atomAttack3,
                 //--------------------
                 atomAttack4,
                 atomAttack5,
@@ -194,17 +217,14 @@ namespace AttackGraph
                 atomAttack7,
                 atomAttack8,
                 atomAttack9,
-                atomAttack10
 
             };
 
-            Attack attacks = new Attack(atomAttacks, knowledges,"0", "2");
+            Attack attacks = new Attack(atomAttacks, privilege, term, network, "0", "2");
+            attacks.FindPath(new Element("a0","6","3","attribute"));
 
-            attacks.DFS(new Element("8", "0", "1", "action"));
-            //attacks.MakeOneMove(new Element("2", "0", "1", "action"), knowledges);
-            //attacks.MakeOneBack(new Element("trust", "1", "0", "attribute"), knowledges);
             Console.ReadKey();
-            ///
+
         }
 
     }
